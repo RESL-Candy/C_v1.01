@@ -47,8 +47,7 @@ void EventAction::EndOfEventAction(const G4Event*)
   fRunAction->AddCount11(fCount11);
   fRunAction->AddCount12(fCount12);
   fRunAction->printEventproc();
-  
-  
+
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

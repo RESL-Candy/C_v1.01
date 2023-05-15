@@ -35,9 +35,22 @@ void SteppingAction::UserSteppingAction(const G4Step* aStep)
   G4int copyNo = aStep->GetPreStepPoint()->GetTouchableHandle()
     ->GetVolume()->GetCopyNo();
 
+
+
+
+  
+  // get analysis manager
+  G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
+
+
+
+
+
   
   // collect energy deposited in this step
   //G4double edepStep = step->GetTotalEnergyDeposit();
+  //aStep->GetTrack()->GetParentID() == 1 /양전자 조건
+  //aStep->GetTrack()->GetParentID() != 1 /양전자 아닌 조건 
   if(aStep->GetTrack()->GetParentID() == 1){
     if(copyNo==0){
       fEventAction->AddCount1(1);
@@ -87,7 +100,19 @@ void SteppingAction::UserSteppingAction(const G4Step* aStep)
       fEventAction->AddCount12(1);
       // G4cout<<"Score~! NO12"<<G4endl;
     }
+
+
+
+
+
+    // fill ntuple
+    analysisManager->FillH1(0, copyNo + 1);
+    analysisManager->FillNtupleDColumn(0,  copyNo + 1);
+    
+    analysisManager->AddNtupleRow();
   }
+
+
   /*
     if (volume == fScoringVolume){
     G4cout<<"Score~!"<<G4endl;

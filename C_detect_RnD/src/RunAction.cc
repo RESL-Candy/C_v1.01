@@ -20,6 +20,32 @@ RunAction::RunAction()
   new G4UnitDefinition("nanogray" , "nanoGy"  , "Dose", nanogray);
   new G4UnitDefinition("picogray" , "picoGy"  , "Dose", picogray);
   */
+
+  // Create analysis manager
+  // The choice of the output format is done via the specified
+  // file extension.
+  G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
+
+  // Create directories
+  //analysisManager->SetHistoDirectoryName("histograms");
+  //analysisManager->SetNtupleDirectoryName("ntuple");
+  analysisManager->SetVerboseLevel(1);
+  // analysisManager->SetNtupleMerging(true);
+  // Note: merging ntuples is available only with Root output
+
+
+  // Creating ntuple
+  //
+  analysisManager->CreateH1("Scoring","scoring", 12, 0.5, 12.5);
+  
+  analysisManager->CreateNtuple("CANDY_tree", "Scoring");
+  analysisManager->CreateNtupleDColumn("Score");
+
+  analysisManager->FinishNtuple();
+
+
+
+  
   //Register accumulable to the accumulable manager
   G4AccumulableManager* accumulableManager = G4AccumulableManager::Instance();
   accumulableManager->RegisterAccumulable(fCount1);
@@ -53,12 +79,26 @@ void RunAction::BeginOfRunAction(const G4Run* )
   G4AccumulableManager* accumulableManager = G4AccumulableManager::Instance();
   accumulableManager->Reset();
 
+  // Get analysis manager
+  G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
+
+  // Open an output file
+  //
+  G4String fileName = "Candy.root";
+  // Other supported output types:
+  // G4String fileName = "B4.csv";
+  // G4String fileName = "B4.hdf5";
+  // G4String fileName = "B4.xml";
+  analysisManager->OpenFile(fileName);
+  G4cout << "Open File " << G4endl;
+
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 void RunAction::EndOfRunAction(const G4Run* run)
 {
+  G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
   nofEvents = run->GetNumberOfEvent();
   if (nofEvents == 0) return;
 
@@ -154,7 +194,11 @@ void RunAction::EndOfRunAction(const G4Run* run)
      << G4endl
      << G4endl;
 
-  
+  // save histograms & ntuple
+  //
+  analysisManager->Write();
+  analysisManager->CloseFile();
+  // G4cout<<"루트파일 만들어짐"<<G4endl;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -224,7 +268,7 @@ void RunAction::printEventproc()
   G4double progressPercent = static_cast<G4double>(eventID) / static_cast<G4double>(numEvents) * 100.0;
 
     G4cout << "Progress: " << progressPercent << "%" << G4endl;
-    /*
+    
   if(fEvent % (nofEvents/div) == 0)
     {
       G4double percent = fEvent; 
