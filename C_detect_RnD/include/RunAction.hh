@@ -10,6 +10,7 @@
 #include "G4UserRunAction.hh"
 #include "G4Accumulable.hh"
 
+#include "G4AnalysisManager.hh" //for make root file
 
 #include "G4RunManager.hh"
 #include "G4Run.hh"
