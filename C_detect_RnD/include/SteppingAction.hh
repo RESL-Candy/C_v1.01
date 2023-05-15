@@ -6,6 +6,11 @@
 #include "Construction.hh"
 
 
+
+#include "G4AnalysisManager.hh"
+
+
+
 #include "G4Step.hh"
 #include "G4Event.hh"
 #include "G4RunManager.hh"

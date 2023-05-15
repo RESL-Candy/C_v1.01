@@ -29,15 +29,14 @@ add_executable(Candy Candy.cc ${sources} ${headers})
 target_link_libraries(Candy ${Geant4_LIBRARIES})
 
 
-set(EXAMPLEB1_SCRIPTS
+set(Candy_SCRIPTS
   
   init_vis.mac
-  run1.mac
-  run2.mac
+  gun.mac
   vis.mac
   )
 
-foreach(_script ${EXAMPLEB1_SCRIPTS})
+foreach(_script ${Candy_SCRIPTS})
   configure_file(
     ${PROJECT_SOURCE_DIR}/${_script}
     ${PROJECT_BINARY_DIR}/${_script}
