@@ -1,0 +1,4 @@
+/Users/kimkuhani/geant4/C_v1.01/C_detect_RnD/build/CMakeFiles/Candy.dir
+/Users/kimkuhani/geant4/C_v1.01/C_detect_RnD/build/CMakeFiles/CandySIM.dir
+/Users/kimkuhani/geant4/C_v1.01/C_detect_RnD/build/CMakeFiles/edit_cache.dir
+/Users/kimkuhani/geant4/C_v1.01/C_detect_RnD/build/CMakeFiles/rebuild_cache.dir
