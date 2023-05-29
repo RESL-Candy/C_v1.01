@@ -1,0 +1,11 @@
+# Initialize kernel
+/run/initialize
+#
+
+/control/verbose 2
+/run/verbose 2
+/event/verbose 0
+/tracking/verbose 0
+/process/optical/cerenkov/setStackPhotons false
+#
+/run/beamOn 100000
